@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Crazy</title>
+  
+  
+  <link href="http://lyf.show/atom.xml" rel="self"/>
+  
+  <link href="http://lyf.show/"/>
+  <updated>2022-10-31T13:53:02.344Z</updated>
+  <id>http://lyf.show/</id>
+  
+  <author>
+    <name>Crazy</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>javascript</title>
+    <link href="http://lyf.show/2022/11/11/categories/JavaScript/"/>
+    <id>http://lyf.show/2022/11/11/categories/JavaScript/</id>
+    <published>2022-11-11T00:24:49.000Z</published>
+    <updated>2022-10-31T13:53:02.344Z</updated>
+    
+    
+    
+    
+    <category term="JavaScript" scheme="http://lyf.show/categories/JavaScript/"/>
+    
+    <category term="js的执行机制" scheme="http://lyf.show/categories/JavaScript/js%E7%9A%84%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/"/>
+    
+    
+    <category term="js" scheme="http://lyf.show/tags/js/"/>
+    
+    <category term="执行机制" scheme="http://lyf.show/tags/%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://lyf.show/2022/09/19/hello-world/"/>
+    <id>http://lyf.show/2022/09/19/hello-world/</id>
+    <published>2022-09-19T14:10:43.000Z</published>
+    <updated>2022-10-31T13:53:02.346Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>title: 搭建个人博客详细教程</p><h2 id="recommend-1"><a href="#recommend-1" class="headerlink" title="recommend: 1"></a>recommend: 1</h2>]]></content>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;title: 搭建个人博客详细教程&lt;/p&gt;
+&lt;h2 id=&quot;recommend-1&quot;&gt;&lt;a href=&quot;#recommend-1&quot; class=&quot;headerlink&quot; title=&quot;recommend: 1&quot;&gt;&lt;/a&gt;recommend: 1&lt;/h2&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+</feed>
