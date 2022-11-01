@@ -59,7 +59,7 @@ pagination_dir: page
 include: null
 exclude: null
 ignore: null
-theme: hexo-theme-amazing
+theme: amazing_themes
 deploy:
   type: git
   repository: https://github.com/vrchild/blog.git
