@@ -1,4 +1,5 @@
 ---
+title: 碎碎念
 date: 2019-11-25 14:49:08
 comments: false
 thumbnail: https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20201030170800.png
@@ -14,7 +15,7 @@ thumbnail: https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/202010301708
         var gitalk = new Gitalk({
             clientID: 'f806584ed1535389dc57',
             clientSecret: '035600e77f12d00406116b25d3c5a1116c41db00',
-            id: 'gitalk',
+            id: 'gitalk-self-talking',
             repo: 'blog',
             owner: 'vrchild',
             admin: ['vrchild'],
