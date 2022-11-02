@@ -41,4 +41,4 @@ thumbnail: https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/202010301709
 <br>
 
 ---
-图片搜集于互联网，侵权请[留言](https://removeif.github.io/message/)，马上处理😊。
+图片搜集于互联网，侵权请[留言](https://lyf.show/message/)，马上处理😊。

@@ -2,13 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-<<<<<<< HEAD
     <mapping directory="$PROJECT_DIR$/themes/amazing_themes" vcs="Git" />
-=======
-    <mapping directory="$PROJECT_DIR$/themes" vcs="Git" />
->>>>>>> fa2db80fd81f6ea65236f2bae60d9f7520896658
-    <mapping directory="$PROJECT_DIR$/themes/hexo-theme-amazing" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/hexo-theme-freemind.bithack" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/hexo-theme-icarus" vcs="Git" />
   </component>
 </project>
