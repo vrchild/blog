@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Crazy</title>
+  
+  
+  <link href="http://lyf.show/atom.xml" rel="self"/>
+  
+  <link href="http://lyf.show/"/>
+  <updated>2022-11-03T13:21:34.289Z</updated>
+  <id>http://lyf.show/</id>
+  
+  <author>
+    <name>Crazy</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js的执行机制</title>
+    <link href="http://lyf.show/2022/11/02/categories/executionMechanism/"/>
+    <id>http://lyf.show/2022/11/02/categories/executionMechanism/</id>
+    <published>2022-11-02T05:24:00.000Z</published>
+    <updated>2022-11-03T13:21:34.289Z</updated>
+    
+    
+    
+    
+    <category term="JavaScript" scheme="http://lyf.show/categories/JavaScript/"/>
+    
+    <category term="js的执行机制" scheme="http://lyf.show/categories/JavaScript/js%E7%9A%84%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/"/>
+    
+    
+    <category term="js" scheme="http://lyf.show/tags/js/"/>
+    
+    <category term="执行机制" scheme="http://lyf.show/tags/%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>promise</title>
+    <link href="http://lyf.show/2022/11/02/categories/peomise/"/>
+    <id>http://lyf.show/2022/11/02/categories/peomise/</id>
+    <published>2022-11-02T00:24:49.000Z</published>
+    <updated>2022-11-03T13:21:34.290Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h3><p><strong>primise是解决异步编程的一种方案，也是ES6统一了用法，promise是一个构造函数，用来生成promise实例</strong></p><ul><li>优点<ul><li>可以将异步的操纵以同步的形式展现出来，避免了层层嵌套的回调函数，使代码更加优雅</li></ul></li><li>缺点<ul><li>无法取消 Promise，一旦新建它就会立即执行，无法中途取消</li><li>如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部</li><li>当处于 Pending状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)</li></ul></li><li>参数<ul><li>new Promise((&#x3D;&#x3D;resolve&#x3D;&#x3D;, &#x3D;&#x3D;reject&#x3D;&#x3D;) &#x3D;&gt; {}<br>promise自己身上的方法作为参数:<ul><li>resolve: 将promise的状态改为fulfilled（完成）</li><li>reject: 将promise的状态改为rejected（失败）</li></ul></li><li>promise.then(res &#x3D;&gt; {}, e &#x3D;&gt; {})<ul><li>onfulfilled: Promise状态为fulfilled，调用then的onfulfilled方法</li><li>onrejected: Promise状态为rejected，调用then的onrejected方法</li></ul></li></ul></li><li>状态<ul><li>pending: 初始状态，既不是成功，也不是失败状态。</li><li>fulfilled: 意味着操作成功完成。</li><li>rejected: 意味着操作失败。</li></ul></li><li>一个 Promise 只有这 3 种状态，且状态的转换过程有且仅有 2 种<ul><li>pending到fulfilled</li><li>pending到rejected</li></ul></li></ul><h3 id="then-x2F-catch"><a href="#then-x2F-catch" class="headerlink" title="then &#x2F; catch"></a>then &#x2F; catch</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// Promise新建后就会立即执行（执行new Promise）</span><br><span class="line">let promise = new Promise((resolve, reject) =&gt; &#123; // 同步宏任务</span><br><span class="line">    console.log(&#x27;123&#x27;);</span><br><span class="line">    resolve(&#x27;resolve&#x27;)</span><br><span class="line">    // reject(&#x27;reject&#x27;)</span><br><span class="line">    </span><br><span class="line">    promise.then(</span><br><span class="line">        onfulfilled =&gt; &#123;</span><br><span class="line">            console.log(&#x27;onfulfilled&#x27;, onfulfilled);</span><br><span class="line">        &#125;,</span><br><span class="line">        onrejected =&gt; &#123;</span><br><span class="line">            console.log(&#x27;onrejected&#x27;, onrejected);</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    // 原型上的then,catch(常规写法)</span><br><span class="line">    promise.then((val) =&gt; &#123; // 微任务</span><br><span class="line">        console.log(&#x27;then&#x27;, val);</span><br><span class="line">    &#125;)</span><br><span class="line">    promise.catch((val) =&gt; &#123; // 微任务</span><br><span class="line">        console.log(&#x27;catch&#x27;, val);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h3 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h3><p>finally()方法只有当状态变化的时候才会执行(即调用<strong>resolve()或reject()</strong>)，可以用来做一些程序的收尾工作，比如操作文件的时候关闭文件流。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">let promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">  // resolve(&#x27;resolve&#x27;)</span><br><span class="line">  reject(&#x27;reject&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line">promise.then(</span><br><span class="line">  res =&gt; &#123;</span><br><span class="line">    console.log(&#x27;res&#x27;, res);</span><br><span class="line">  &#125;,</span><br><span class="line">  e =&gt; &#123;</span><br><span class="line">    console.log(&#x27;e&#x27;, e);</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">promise.finally(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;finally&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line">// e reject , finally</span><br></pre></td></tr></table></figure><h3 id="all"><a href="#all" class="headerlink" title="all"></a>all</h3><p>Promise 的 all 可以将多个Promise实例包装成一个新的Promise实例。同时，成功和失败的返回值是不同的，成功的时候返回的是一个结果数组，而失败的时候则返回&#x3D;&#x3D;最先&#x3D;&#x3D;被reject失败状态的值<br>Promise.all方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。）</p><ul><li>只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数</li><li>只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">let promise1 = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      resolve(&#x27;resolve1&#x27;)</span><br><span class="line">      // reject(&#x27;reject1&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">    ⭐// p1会resolved，p2首先会rejected，但是p2有自己的catch方法，该方法返回的是一个新的 Promise实例，p2指向的实际上是这个实例。该实例执行完catch方法后，也会变成resolved，导致Promise.all()方法参数里面的两个实例都会resolved，因此会调用then方法指定的回调函数，而不会调用catch方法指定的回调函数。</span><br><span class="line">    let promise2 = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      // resolve(&#x27;resolve2&#x27;)</span><br><span class="line">      // reject(&#x27;reject2&#x27;)</span><br><span class="line">      setTimeout(() =&gt; &#123;</span><br><span class="line">        reject(&#x27;reject2&#x27;)</span><br><span class="line">      &#125;, 1000)</span><br><span class="line">    &#125;).catch(e =&gt; &#123;</span><br><span class="line">      console.log(&#x27;promise2, catch&#x27;, e);</span><br><span class="line">    &#125;)</span><br><span class="line">    let promise3 = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      resolve(&#x27;resolve3&#x27;)</span><br><span class="line">      // reject(&#x27;reject3&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">    let promise = Promise.all([promise1, promise2, promise3])</span><br><span class="line">    ⭐//这里加不会影响</span><br><span class="line">    // promise2.catch(e =&gt; &#123;</span><br><span class="line">    //   console.log(&#x27;promise2, catch&#x27;, e);</span><br><span class="line">    // &#125;)</span><br><span class="line">    promise.then(</span><br><span class="line">      res =&gt; &#123;</span><br><span class="line">        // 全是fulfilled状态--- res (3) [&#x27;resolve1&#x27;, &#x27;resolve2&#x27;, &#x27;resolve3&#x27;]</span><br><span class="line">        console.log(&#x27;res&#x27;, res);</span><br><span class="line">      &#125;,</span><br><span class="line">      e =&gt; &#123;</span><br><span class="line">        // 一个rejected状态--- e reject2</span><br><span class="line">        console.log(&#x27;e&#x27;, e);</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">    // promise.finally(() =&gt; &#123;</span><br><span class="line">    //   console.log(&#x27;finally&#x27;);</span><br><span class="line">    // &#125;)</span><br></pre></td></tr></table></figure></li></ul><h3 id="race"><a href="#race" class="headerlink" title="race()"></a>race()</h3><p>Promise.race([p1, p2,p3])里面哪个结果&#x3D;&#x3D;获得的快&#x3D;&#x3D;，就返回那个结果，不管结果本身是成功状态还是失败状态。（使用场景基本没有）</p>]]></content>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;promise&quot;&gt;&lt;a href=&quot;#promise&quot; class=&quot;headerlink&quot; title=&quot;promise&quot;&gt;&lt;/a&gt;promise&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;primise是解决异步编程的一种方案，也是ES6统一了用法，promise是一个构造函数，用来生成promise实例&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;优点&lt;ul&gt;
+&lt;li&gt;可以将异步的操纵以同步的形式展现出来，避免了层层嵌套的回调函数，使代码更加优雅&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;缺点&lt;ul&gt;
+&lt;li&gt;无法取消 Promise，一旦新建它就会立即执行，无法中途取消&lt;/li&gt;
+&lt;li&gt;如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部&lt;/li&gt;
+&lt;li&gt;当处于 Pending状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参数&lt;ul&gt;
+&lt;li&gt;new Promise((&amp;#x3D;&amp;#x3D;resolve&amp;#x3D;&amp;#x3D;, &amp;#x3D;&amp;#x3D;reject&amp;#x3D;&amp;#x3D;) &amp;#x3D;&amp;gt; {}&lt;br&gt;promise自己身上的方法作为参数:&lt;ul&gt;
+&lt;li&gt;resolve: 将promise的状态改为fulfilled（完成）&lt;/li&gt;
+&lt;li&gt;reject: 将promise的状态改为rejected（失败）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;promise.then(res &amp;#x3D;&amp;gt; {}, e &amp;#x3D;&amp;gt; {})&lt;ul&gt;
+&lt;li&gt;onfulfilled: Promise状态为fulfilled，调用then的onfulfilled方法&lt;/li&gt;
+&lt;li&gt;onrejected: Promise状态为rejected，调用then的onrejected方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;状态&lt;ul&gt;
+&lt;li&gt;pending: 初始状态，既不是成功，也不是失败状态。&lt;/li&gt;
+&lt;li&gt;fulfilled: 意味着操作成功完成。&lt;/li&gt;
+&lt;li&gt;rejected: 意味着操作失败。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;一个 Promise 只有这 3 种状态，且状态的转换过程有且仅有 2 种&lt;ul&gt;
+&lt;li&gt;pending到fulfilled&lt;/li&gt;
+&lt;li&gt;pending到rejected&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;then-x2F-catch&quot;&gt;&lt;a href=&quot;#then-x2F-catch&quot; class=&quot;headerlink&quot; title=&quot;then &amp;#x2F; catch&quot;&gt;&lt;/a&gt;then &amp;#x2F; catch&lt;/h3&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// Promise新建后就会立即执行（执行new Promise）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let promise = new Promise((resolve, reject) =&amp;gt; &amp;#123; // 同步宏任务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    console.log(&amp;#x27;123&amp;#x27;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    resolve(&amp;#x27;resolve&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // reject(&amp;#x27;reject&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    promise.then(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        onfulfilled =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            console.log(&amp;#x27;onfulfilled&amp;#x27;, onfulfilled);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        onrejected =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            console.log(&amp;#x27;onrejected&amp;#x27;, onrejected);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // 原型上的then,catch(常规写法)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    promise.then((val) =&amp;gt; &amp;#123; // 微任务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        console.log(&amp;#x27;then&amp;#x27;, val);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    promise.catch((val) =&amp;gt; &amp;#123; // 微任务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        console.log(&amp;#x27;catch&amp;#x27;, val);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;finally&quot;&gt;&lt;a href=&quot;#finally&quot; class=&quot;headerlink&quot; title=&quot;finally&quot;&gt;&lt;/a&gt;finally&lt;/h3&gt;&lt;p&gt;finally()方法只有当状态变化的时候才会执行(即调用&lt;strong&gt;resolve()或reject()&lt;/strong&gt;)，可以用来做一些程序的收尾工作，比如操作文件的时候关闭文件流。&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;let promise = new Promise((resolve, reject) =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  // resolve(&amp;#x27;resolve&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  reject(&amp;#x27;reject&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;promise.then(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  res =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    console.log(&amp;#x27;res&amp;#x27;, res);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  e =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    console.log(&amp;#x27;e&amp;#x27;, e);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;promise.finally(() =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  console.log(&amp;#x27;finally&amp;#x27;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// e reject , finally&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;all&quot;&gt;&lt;a href=&quot;#all&quot; class=&quot;headerlink&quot; title=&quot;all&quot;&gt;&lt;/a&gt;all&lt;/h3&gt;&lt;p&gt;Promise 的 all 可以将多个Promise实例包装成一个新的Promise实例。同时，成功和失败的返回值是不同的，成功的时候返回的是一个结果数组，而失败的时候则返回&amp;#x3D;&amp;#x3D;最先&amp;#x3D;&amp;#x3D;被reject失败状态的值&lt;br&gt;Promise.all方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="JavaScript" scheme="http://lyf.show/categories/JavaScript/"/>
+    
+    <category term="promise" scheme="http://lyf.show/categories/JavaScript/promise/"/>
+    
+    
+    <category term="js" scheme="http://lyf.show/tags/js/"/>
+    
+    <category term="promise" scheme="http://lyf.show/tags/promise/"/>
+    
+  </entry>
+  
+</feed>
